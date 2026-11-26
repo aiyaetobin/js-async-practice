@@ -1,5 +1,5 @@
 import { it, test } from 'node:test';;
-import { calculateTotal, fetchOrder, getOrderTotal } from './orders.mjs';
+import { calculateTotal, fetchOrder, fetchTwoParallel, getOrderTotal } from './orders.mjs';
 import { strictEqual, deepStrictEqual, rejects } from 'node:assert/strict';
 
 
@@ -45,4 +45,20 @@ test('an unknown order id should reject with message Order not found' , async ()
     await rejects(
         getOrderTotal(99), { message: "Order not found" }     
     );
+});
+
+test('deepstrictequals to compares calls to fetchTwoParrallel', async () => {
+    const expected = [
+        await fetchOrder(1),
+        await fetchOrder(2)
+    ];
+
+    const actual = await fetchTwoParallel(1,2);
+
+    deepStrictEqual(actual, expected);
+
+});
+
+test('when one order ID is invalid the promise all should reject with Order not found' , async () => {
+    await rejects(fetchTwoParallel(1,99), {message: "Order not found"} );
 });

@@ -57,3 +57,19 @@ export async function getOrderTotal(id){
     const order = await fetchOrder(id);
     return calculateTotal(order.items);
 };
+
+export async function fetchTwoSequential(idA, idB) {
+    const resultOne = await fetchOrder(idA);
+    const resultTwo = await fetchOrder(idB);
+
+    return [resultOne, resultTwo];
+};
+
+export async function fetchTwoParallel(idA, idB) {
+    const results = await Promise.all([
+       fetchOrder(idA),
+       fetchOrder(idB)
+    ]);
+
+    return results;
+};
