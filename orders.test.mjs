@@ -1,8 +1,6 @@
-import { it, test } from 'node:test';
-import { strictEqual } from 'node:assert/strict';
+import { it, test } from 'node:test';;
 import { calculateTotal, fetchOrder, getOrderTotal } from './orders.mjs';
-import { deepStrictEqual } from 'node:assert';
-import { rejects } from 'node:assert/strict';
+import { strictEqual, deepStrictEqual, rejects } from 'node:assert/strict';
 
 
 test('calculateTotal adds item totals correctly', () => {
@@ -41,4 +39,10 @@ test('fetchOrder() called on non existant order', async () =>{
 
 test('testing getOrderTotal(id) on order 1', async ()=>{
     strictEqual(await getOrderTotal(1), 90);
+});
+
+test('an unknown order id should reject with message Order not found' , async () => {
+    await rejects(
+        getOrderTotal(99), { message: "Order not found" }     
+    );
 });
