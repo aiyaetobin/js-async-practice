@@ -21,3 +21,39 @@ export function calculateTotal(items){
 // ];
 
 // console.log(calculateTotal(items));
+
+
+const orders = [
+  {
+    id: 1,
+    items: [
+      { name: "Mouse", price: 20, quantity: 2 },
+      { name: "Keyboard", price: 50, quantity: 1 }
+    ]
+  },
+  {
+    id: 2,
+    items: [
+      { name: "Monitor", price: 200, quantity: 1 }
+    ]
+  }
+];
+
+export function fetchOrder(id) {
+    return new Promise((resolve, reject) => {
+        setTimeout(()=>{
+            const order = orders.find(order => order.id === id);
+            if(order === undefined){
+                reject(new Error("Order not found"));
+            }else{
+                resolve(order);
+            }
+
+        }, 100);
+    });
+};
+
+export async function getOrderTotal(id){
+    const order = await fetchOrder(id);
+    return calculateTotal(order.items);
+};
