@@ -73,3 +73,35 @@ export async function fetchTwoParallel(idA, idB) {
 
     return results;
 };
+
+// export function validateItem(item) {
+//     if(!(typeof item.name === 'string' && item.name !== "")){
+//         throw new TypeError("Invalid name");
+//     }
+
+//     if(!(typeof item.price === "number" && item.price > 0)){
+//         throw new RangeError("Invalid price");
+//     }
+
+//     if(!(Number.isInteger(item.quantity) && item.quantity >= 1 && item.quantity <= 99)){
+//         throw new RangeError("Invalid quantity");
+//     }
+
+//     return true;
+// };
+
+export function validateItem(item) {
+    if (!(typeof item.name === 'string' && item.name !== "")) {
+        throw new TypeError("Invalid name");
+    }
+
+    if (!(typeof item.price === "number" && item.price > 0)) {
+        throw new RangeError("Invalid price");
+    }
+
+    if (!(Number.isInteger(item.quantity) && item.quantity >= 1 && item.quantity <= 99)) {
+        throw new RangeError("Invalid quantity");
+    }
+
+    return true;
+}
